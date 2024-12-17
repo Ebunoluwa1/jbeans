@@ -15,9 +15,10 @@ import m6 from '../assets/m2.jpg'
 
 function Testimonial({ name, content }) {
   return (
-    <div className="w-full bg-white border shadow-md rounded-xl p-6 ">
-      <h3 className="font-medium text-lg lg:text-xl mb-2">{name}</h3>
-      <p className="text-sm xl:text-lg font-light text-gray-600">{content}</p>
+    <div className="w-full bg-[#e5e5e5] border shadow-md rounded-xl p-6 ">
+     
+      <p className="text-sm xl:text-lg font-light text-black">{content}</p>
+       <h3 className="font-medium text-base italic  text-[#FFA500] lg:text-xl mb-2">{name}</h3>
     </div>
   );
 }
