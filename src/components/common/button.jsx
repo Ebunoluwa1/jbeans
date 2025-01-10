@@ -29,8 +29,8 @@ export const Button = ({
 const classes = {
     base: "inline-block rounded-md font-semibold text-center",
     color: {
-        primary: 'bg-[#FFA500] hover:opacity-100 text-white',
-        sec: 'bg-white hover:opacity-100 text-[#FFA500]',
+        primary: 'bg-[#3A2829] hover:opacity-100 text-white',
+        sec: 'bg-white hover:opacity-100 text-[#3A2829]',
     },
     size: {
         sm: 'px-3 py-1.5 text-sm', // Small button size

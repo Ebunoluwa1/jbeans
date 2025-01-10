@@ -1,52 +1,86 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-
 import React from 'react';
 import VideoPlayer from '../components/landing/video';
 import { Button } from '../components/common/button';
 import { Calendar, CookingPot } from 'lucide-react';
 import Text from '../components/common/text';
 import ImgCard from '../components/common/imgcard';
-import m1 from '../assets/m1.jpg'
-import m2 from '../assets/m2.jpg'
-import m3 from '../assets/m2.jpg'
-import m4 from '../assets/m2.jpg'
-import m5 from '../assets/m2.jpg'
-import m6 from '../assets/m2.jpg'
+import m1 from '../assets/bebW.jpeg'
+import m2 from '../assets/chickpea.jpeg'
+import m3 from '../assets/lentilW1.jpg'
+import m4 from '../assets/product.jpg'
+import m5 from '../assets/jb-flour.jpeg'
+import m6 from '../assets/jb-washedbean.jpeg'
+import { useNavigate } from 'react-router-dom';
 
 function Testimonial({ name, content }) {
+
+
+
+
+
   return (
     <div className="w-full bg-[#e5e5e5] border shadow-md rounded-xl p-6 ">
      
       <p className="text-sm xl:text-lg font-light text-black">{content}</p>
-       <h3 className="font-medium text-base italic  text-[#FFA500] lg:text-xl mb-2">{name}</h3>
+       <h3 className="font-medium text-base italic  text-[#3A2829] lg:text-xl mb-2">{name}</h3>
     </div>
   );
 }
 
  const LandingPage = () => {
-const borderColors = ['border-yellow-500', 'border-green-600', 'border-purple-600'];
+
    const testimonials = [
     {
       name: "-Emmanuel",
       content:
-        "“Ever since i gave my life to Christ, my life has never been the same. It’s been an awesome experience getting to know Him day by day. Feels like i just started living. Glory to God for this awesome experience.”",
+        "As someone transitioning to a plant-based diet, JustBeans has been a lifesaver. The chickpeas are perfect for my homemade hummus and curries. I appreciate the freshness and the detailed cooking tips they provide. It's a game-changer!",
     },
     {
       name: "-Emmanuella",
       content:
-        "“Ever since i gave my life to Christ, my life has never been the same. It’s been an awesome experience getting to know Him day by day. Feels like i just started living. Glory to God for this awesome experience.”",
+        "JustBeans has completely transformed my cooking! The black-eyed beans are so creamy and flavorful – they’ve become a staple in my stews. I also love how easy it is to order and the quality is always top-notch. Highly recommend to anyone looking for premium legumes!",
     },
     {
       name: "-Pamela",
       content:
-        "“Ever since i gave my life to Christ, my life has never been the same. It’s been an awesome experience getting to know Him day by day. Feels like i just started living. Glory to God for this awesome experience.”",
+        "The lentils from JustBeans are the best I’ve ever tried. They cook so quickly and taste amazing in my salads and soups. Plus, the storage tips they share ensure I never waste a single bean. Fantastic service and quality!",
     },
      {
-      name: "-Pamel",
+      name: "-Mark K",
       content:
-        "“Ever since i gave my life to Christ, my life has never been the same. It’s been an awesome experience getting to know Him day by day. Feels like i just started living. Glory to God for this awesome experience.”",
+        "I was skeptical at first, but JustBeans exceeded my expectations. The variety they offer is incredible, and every product I’ve tried is fresh and packed with flavor. Their focus on health and sustainability really sets them apart. I’m a loyal customer now!",
     },
   ];
+  const beans = [
+    { img: m1,
+      name: "-BLACK-EYED BEAN",
+      content:
+        "Black-Eyed Beans are rich in protein and dietary fiber, and their creamy texture and earthy flavor provide a comforting touch to any meal. Nutritious and versatile, they are high in folate, iron, and potassium, making them a healthy choice. These beans are a staple for traditional dishes like akara (bean cakes), adding both flavor and nutrition",
+        borderColor: "border-yellow-500",
+    },
+    {
+      img: m2,
+      name: "-CHICKPEA",
+      content:
+        "Chickpeas are a protein-packed legume celebrated for their nutty flavor and smooth texture. Ideal for hummus, curries, or as a roasted snack, they are a favorite in plant-based diets. Chickpeas are rich in antioxidants and essential minerals like magnesium and phosphorus, making them a key ingredient in popular dishes.",
+        borderColor: "border-green-600",
+    },
+    {
+      img: m3,
+      name: "-LENTIL",
+      content:
+        "Lentils are a quick-cooking, nutrient-dense powerhouse. Their mild, earthy flavor makes them versatile for soups, salads, and grain bowls. Packed with protein and fiber, they support a healthy balanced diet, manage cholesterol levels.Known for promoting heart health and aiding digestion,they are a perfect addition to any meal.",
+        borderColor: "border-purple-600",
+    },
+    
+  ];
+   const navigate = useNavigate();
+  function handleProducts(){
+    
+    navigate('/products')
+  }
   return (
     <div className="block">
   {/* Video Player */}
@@ -56,6 +90,7 @@ const borderColors = ['border-yellow-500', 'border-green-600', 'border-purple-60
   {/* Call-to-Action */}
   <div className="flex flex-col gap-4 justify-center items-center px-4">
     <Button 
+    onClick={handleProducts}
       size="md" 
       color="primary" 
       base="true" 
@@ -70,23 +105,26 @@ const borderColors = ['border-yellow-500', 'border-green-600', 'border-purple-60
   </div>
 
   {/* Image Section */}
+
   <div className="mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center items-center gap-8 mt-8 mb-8">
-    {[m1, m2, m3].map((img, index) => (
+    {beans.map((bean, index) => (
       <div key={index} className="w-[90%] sm:w-[45%] lg:w-[30%]">
-         {/* {[m1, m2, m3].map((img, index) => ())} */}
-        <ImgCard src={img} className={`border-8 ${borderColors[index]}`} />
-        <main className="text-center mt-4">
-          <h2 className="font-bold text-xl md:text-2xl">POTS OF PLEASURE</h2>
-          <p className="px-2 text-sm md:text-base leading-relaxed">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi quo at itaque et veniam.Animi quo at itaque et veniam.Animi quo at itaque et veniam.Animi quo at itaque et veniam.
-          </p>
-        </main>
+        <ImgCard src={bean.img} className={`border-8 ${bean.borderColor}`} />
+           <main className="text-center mt-4">
+             <h2 className="font-bold text-xl md:text-2xl">{bean.name}</h2>
+             <p className="px-2 text-sm md:text-base leading-relaxed">
+             {bean.content}
+            </p>
+           </main>
+         
       </div>
     ))}
   </div>
+
        {/* Call-to-Action */}
   <div className="flex flex-col gap-4 justify-center items-center px-4">
     <Button 
+    onClick={handleProducts}
       size="md" 
       color="primary" 
       base="true" 
@@ -96,33 +134,35 @@ const borderColors = ['border-yellow-500', 'border-green-600', 'border-purple-60
     </Button>
     <Text 
       text="Free Postage" 
-      className="mb-2 items-center cursor-pointer text-sm sm:text-base"
+      className="mb-2 items-center cursor-pointer text-sm   sm:text-base"
     />
   </div>
 
   {/* Ellipse Background Section */}
   <div 
-    className="bg-[#FFA500] w-full h-auto py-8" 
+    className="bg-[#FCE5CD] w-full h-auto py-8" 
     style={{ clipPath: 'ellipse(180% 100% at 50% 100%)' }}
   >
-    <h2 className="text-2xl md:text-3xl font-bold text-white text-center">140+ Recipes</h2>
+    <h2 className="text-2xl md:text-3xl font-bold text-[#3A2829] text-center">OUR PRODUCTS </h2>
     <div className="flex flex-wrap justify-center items-center gap-8 mt-8">
       {[m4, m5, m6].map((img, index) => (
          
         <div key={index} className="w-[90%] sm:w-[45%] lg:w-[30%]">
-          <ImgCard src={img} className="border-8 border-yellow-500" />
+          <ImgCard src={img} className="border-8 border-[#3A2829]" />
         </div>
       ))}
     </div>
-    {/* mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center items-center gap-8 mt-8 mb-8 */}
+
      {/* Additional Section */}
   <div className="flex flex-col items-center text-center mt-8 px-4">
     <Text 
-      text="Discover delicious every night. We’re always adding new, easy-to-follow recipes from unexpected cuisines." 
+      // text="Discover delicious every night. We’re always adding new, easy-to-follow recipes from unexpected cuisines." 
+      text="Rediscover the goodness of beans – wholesome, nutritious, and perfect for every meal."
       bold 
-      className="text-lg md:text-2xl font-semibold text-center text-white"
+      className="text-lg md:text-2xl font-semibold text-center text-[#3A2829]"
     />
     <Button 
+       onClick={handleProducts}
       size="md" 
       color="sec" 
       base="true" 
@@ -132,20 +172,21 @@ const borderColors = ['border-yellow-500', 'border-green-600', 'border-purple-60
     </Button>
     <Text 
       text="Free Postage" 
-      className="mb-2 items-center cursor-pointer text-white font-bold text-sm md:text-base"
+      className="mb-2 items-center cursor-pointer text-[#3A2829] font-bold text-sm md:text-base"
     />
   </div>
+
  {/* Two-Column Features */}
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-10 px-6">
     <div className="flex flex-col items-center text-center">
-      <CookingPot className="text-white m-4" />
-      <p className="text-white">
+      <CookingPot className="text-[#3A2829] m-4" />
+      <p className="text-[#3A2829]">
         Following our recipes, combine our kits with 4-6 items from your fridge or cupboard.
       </p>
     </div>
     <div className="flex flex-col items-center text-center">
-      <Calendar className="text-white m-4" />
-      <p className="text-white">
+      <Calendar className="text-[#3A2829] m-4" />
+      <p className="text-[#3A2829]">
         After your first box, change, pause, or cancel your subscription at any time. No commitment and hassle-free.
       </p>
     </div>
@@ -158,19 +199,20 @@ const borderColors = ['border-yellow-500', 'border-green-600', 'border-purple-60
  
       {/* button */}
        <div className='flex flex-col gap-4 justify-center items-center'>
-             <Button size='md' color='primary' base='true' className='mt-8 mb-2 w-[40%] hover:opacity-80 focus:opacity-80 '>
+             <Button onClick={ handleProducts} size='md' color='primary' base='true' className='mt-8 mb-2 w-[40%] hover:opacity-80 focus:opacity-80 '>
              Try for $3
              </Button>
               <Text text='Free Postage' className='mb-2 items-center cursor-pointer' />
         </div>
+
          {/* Reviews Section */}
-          <div className="text-center mt-12 px-4">
+          <div id='Reviews' className="text-center mt-12 px-4">
                 <h3 className="font-bold text-2xl md:text-3xl mb-4">
-                  MORE THAN 10 MILLION MEALS ENJOYED
+                 REVIEWS ABOUT OUR PRODUCTS
                 </h3>
                 <p className="text-lg md:text-xl mb-8">
-                  Join the <span className="text-[#FFA500] italic">thousands</span> who have discovered the secret to sensational weeknight meals. 
-                  <strong> We are rated excellent with over 10,000 reviews.</strong>
+                  Join the <span className="text-[#3A2829] font-bold text-sm  italic">thousands</span> who have discovered the secret to sensational weeknight meals. 
+                  <strong> We are rated excellent with amazing reviews.</strong>
                 </p>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6">
@@ -185,7 +227,7 @@ const borderColors = ['border-yellow-500', 'border-green-600', 'border-purple-60
 
                 {/* button */}
               <div className='flex flex-col gap-4 justify-center items-center'>
-                    <Button size='md' color='primary' base='true' className='mt-8 mb-2 w-[40%] hover:opacity-80 focus:opacity-80 '>
+                    <Button size='md' onClick={handleProducts} color='primary' base='true' className='mt-8 mb-2 w-[40%] hover:opacity-80 focus:opacity-80 '>
                     Try for $3
                     </Button>
                       <Text text='Free Postage' className='mb-2 items-center cursor-pointer' />
@@ -201,7 +243,7 @@ const borderColors = ['border-yellow-500', 'border-green-600', 'border-purple-60
               <ul>
                 <li>
                   <h4 className="text-[#a09f9f] capitalize text-lg sm:text-xl my-2">
-                    SimplyCook
+                    justBeans!
                   </h4>
                 </li>
                 <li>

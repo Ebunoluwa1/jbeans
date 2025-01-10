@@ -23,9 +23,9 @@ const Text = ({
             ${featured && "text-3xl font-bold absolute bottom-16"}
             ${title && "text-base md:text-3xl font-bold mb-2 "} 
              ${(caption || input) && "text-gray-500 text-2xl px-4 "} 
-            ${normal && "text-white text-xs"} 
+            ${normal && "text-[#3A2829] text-xs"} 
             ${input && "text-xs mb-2 "} 
-        font-inter `} 
+        font-inter text-[#3A2829] `} 
       >{text} </p>
     </div>
   );

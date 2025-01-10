@@ -35,7 +35,7 @@ const VideoPlayer = () => {
         <section className="absolute inset-0 flex flex-col justify-center items-center text-white text-center">
           <h1 className="font-serif italic text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl ">Welcome to JustBeans - </h1>
           <br />
-          <p className="font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-4 "> <b>Authentic Flavors</b> Delivered to You</p>
+          <p className="font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-4 font-lato "> high-protein, gluten-free, and nutrient-rich</p>
         </section>
     </div>
   );
