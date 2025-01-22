@@ -1,55 +1,65 @@
-import React from 'react';
-
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
+import { product } from './product';
+import { useDispatch } from 'react-redux';
+import {changeQuantity} from '../stores/cart';
 
 // Cart Page
-const CartPage = ({ cartItems }) => {
+const CartPage = (props) => {
+const {productId, quantity} = props.data;
+const [detail, setDetail] = useState([]);
 
+useEffect(() => {
+  const findDetail = product.filter(prod => prod.id === productId)[0];
+  setDetail(findDetail)
+  console.log(detail)
+},[productId])
+
+const dispatch = useDispatch()
     // Add to Cart Functionality
-const addToCart = (product) => {
-  // Add product to cart in frontend state
-  // Also update backend if necessary
-};
+    const handleMinusQuantity = () => {
+    dispatch(changeQuantity({
+      productId: productId,
+      quantity: quantity - 1
+    }));
+  }
+  const handlePlusQuantity = ()=> {
+    dispatch(changeQuantity({
+      productId: productId,
+      quantity: quantity + 1
+    }))
 
-const updateCartItem = (id, quantity) => {
-  // Update item quantity in cart
-};
+  }
 
-const removeFromCart = (id) => {
-  // Remove item from cart
-};
-
-  return (
-    <div className="cart-page">
+  
+  return ( 
+    <div className="flex justify-between items-center bg-slate-600 text-white p-2 border-b-2 border-slate-700 gap-5 rounded-md my-2">
       {/* Cart Items List */}
-      <ul className="cart-items">
-        {cartItems.map((item) => (
-          <li key={item.id}>
-            <img src={item.image} alt={item.name} />
+      
+            <img src={detail.img} alt={detail.name} className='w-12' />
             <div>
-              <h4>{item.name}</h4>
-              <p>${item.price}</p>
+              <h4>{detail.name}</h4>
+              <p>${(detail.price * quantity).toFixed(2)}</p>
 
               {/* Update Options */}
-              <label>
-                Quantity:
-                <input
-                  type="number"
-                  value={item.quantity}
-                  onChange={(e) => updateCartItem(item.id, e.target.value)}
-                />
-              </label>
-              <button onClick={() => removeFromCart(item.id)}>Remove</button>
+
+              <div className='w-20 flex justify-between gap-2'>
+                  <button className='bg-gray-200 rounded-full w-6 text-cyan-600 ' onClick={handleMinusQuantity}>-</button>
+                  <span>{quantity}</span>
+                  <button className='bg-gray-200 rounded-full w-6  text-cyan-600 ' onClick={handlePlusQuantity}>+</button>
+             </div>
+              
             </div>
-          </li>
-        ))}
-      </ul>
+       
 
       {/* Checkout Button */}
-      <button className="checkout-button">Proceed to Checkout</button>
+      {/* <button className=" ">Proceed to Checkout</button> */}
     </div>
   );
 };
 
 
-export default Cartpage;
+export default CartPage;
 

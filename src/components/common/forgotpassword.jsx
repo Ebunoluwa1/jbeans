@@ -11,63 +11,66 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import ImgCard from './imgcard';
-import { useRef, useState, useEffect } from 'react';
-import logo from '../../assets/logo.png'
-import { Link } from 'react-router';
-import { Alert } from "@/components/ui/alert"
-import { useNavigate } from 'react-router';
+import { useState, useEffect, useRef } from 'react';
+import logo from '../../assets/logo.png';
 import { useAuth } from '../services/auth';
+import {Alert} from "@/components/ui/alert"
+import { Link } from 'react-router';
 
-const SignIn = () => {
+const ForgotPassword = () => {
  const [isLoading, setIsLoading] =useState(true);
+ const { passwordReset } = useAuth();
   const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const { login } = useAuth();
+  const [msg, setMsg] = useState("");
+//    const [errorMsg, setErrorMsg] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+     if (loading) return; // Prevent multiple clicks
+
+  setLoading(true);
+  setMsg("");
+    try {
+      const { data, error } = await passwordReset(emailRef.current.value);
+
+      //handle supabase errors
+      if(error){
+
+        //check if its rate-limiting error
+        if(error.message.includes("Too many request")){
+            setMsg("Too many requests. Please wait a moment and try again later ")
+        } else{
+            setMsg(error.message || 'Failed to send reset email')
+        }
+        
+        return;
+      }
+
+     //success message
+
+      console.log(data); 
+  setMsg("Password reset has been sent to your email.");
+    } catch (e) {
+        //handle unexpected errors
+      console.log(e);
+      console.log("Unexpected error: ",e);
+       setMsg("An unexpected error occurred. Please try again.");
+    }
+    //reset loading
+    setLoading(false);
+  };
 
  useEffect(() => {
-
-  
-  const timer = setTimeout(() => {
+ const timer = setTimeout(() => {
 //setLoading spinner
   setIsLoading(false);
   }, 2000)
  return () => clearTimeout(timer)
  }, []);
 
-  // const handleSubmit = (e) => {
-  // e.preventDefault()
-  // }
-const handleSubmit = async (e) => {
-    e.preventDefault();
-      if (loading) return;
-
-  setLoading(true);
-  setErrorMsg("");
-
-    try {
-     
-      if (!emailRef.current?.value || !passwordRef.current?.value ) {
-        setErrorMsg("Please fill in the fields");
-        return;
-      }
-      const  { user, session, error }  = await login(emailRef.current.value, passwordRef.current.value);
-       if (!user) {
-      setErrorMsg("Invalid login credentials. Please try again.");
-      return;
-    }
-      if (error) setErrorMsg(error.message);
-      if (user && session) navigate("/");
-    } catch (error) {
-      setErrorMsg(error.message || "Email or Password Incorrect");
-    }
-    setLoading(false);
-  };
-  
-
-
+ 
   return (
     <>
       {isLoading ?
@@ -101,41 +104,37 @@ const handleSubmit = async (e) => {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <div>
-                <h3 className='py-4  text-sm sm:text-base'> Sign in with your email and password.</h3> 
+                <h3 className='py-4  text-2xl '> Forgot your password ?</h3> 
+                <p>Enter your email and we would send an email to reset your password</p>
               </div>
               <Label htmlFor="email"  className="text-sm sm:text-base">Email</Label>
-              <Input className='ring-gray-50 w-full' id="email" ref={emailRef} type="email" placeholder=" user@gmail.com" />
+              <Input className='ring-gray-50 w-full' type="email" ref={emailRef} required id="email" placeholder=" user@gmail.com" />
             </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="password"  className="text-sm sm:text-base">Password</Label>
-              <Input id="password" placeholder="*****"  ref={passwordRef} type="password" className="w-full"/>
-             
-            </div>
+            
           </div>
         </form>
 
-       </CardContent>
-      {errorMsg && (
-                <div className=" space-x-1 mx-8 ">
-                    <Alert className=' w-full text-sm'
-                    variant="destructive"
-                    onClose={() => setErrorMsg("")}
-                    >
-                        <p className="w-[90%]"> {errorMsg}</p>
-                 </Alert>
-                </div>
-
+       </CardContent>  
+       
+        {msg && (
+            <div className=" space-x-1 space-y-1 mx-8 ">
+              <Alert  className=' w-full text-sm' variant="success" onClose={() => setMsg("")} >
+                {msg}
+              </Alert>
+              </div>
             )}
         <CardFooter className="flex text-center items-center flex-col ">
-            <Link to={"/forgot-password"} className='text-#3A2829] hover:underline p-4 cursor-pointer  text-sm sm:text-base'> Forgot your password ?</Link>
-          <Button  disabled={loading} onClick={handleSubmit} type="submit" className='bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4'>{loading ? "Getting signed in..." : "Sign in"}</Button>
-           <div className="w-100 text-center mt-2">
-          New User? <Link to={"/sign-up"} className='hover:underline cursor-pointer'>Register</Link>
+            <div className="text-center mt-2">
+              <Button disabled={loading} onClick={handleSubmit} type="submit" className='bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4'>
+              {loading ? 'Sending Reset Link' : 'Reset Password' }
+              </Button>
+            </div>
+             <div className="w-100 text-center mt-2">
+          Back to Login? <Link to={"/sign-in"} className='hover:underline'>Sign in</Link>
         </div>
         </CardFooter>
     </Card>
        </div>
-
        </div>
       </div>
       </div>
@@ -150,4 +149,4 @@ const handleSubmit = async (e) => {
   );
 }
 
-export default SignIn ;
+export default ForgotPassword;

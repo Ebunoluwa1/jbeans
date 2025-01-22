@@ -2,34 +2,20 @@ import React from 'react';
 import ImgCard from './../common/imgcard';
 import logo from './../../assets/logo.png';
 import { useState, useEffect } from 'react';
-import m4 from '../../assets/product.jpg'
-import m5 from '../../assets/jb-flour.jpeg'
-import m6 from '../../assets/jb-washedbean.jpeg'
+import CartHeader from './cartHeader';
+
+import Home from '../../pages/home';
+import { Outlet } from 'react-router';
+import CartTab from './cartTab';
+import { useSelector , useDispatch} from 'react-redux';
+import { toggleStatusTab } from '../stores/cart';
 
 // Product Listing Page
 const ProductListingPage = () => {
+    
  const [isLoading, setIsLoading] =useState(true);
 
- const product = [
-    { img: m5,
-      name: "JB-Flour",
-      content: "JB-Flour is used in making the best Frozen beans fritter (akara), it is made up of combining the JB-flour garnished with peppers and aromatics, fried to perfection.",
-      price:"1.5",
-    },
-     { img: m6,
-      name: "JB-Rawbeans",
-        content: "JB-Rawbeans is used in making the best bean pudding or beans fritter, it is made up of combining the Rawbean garnished with peppers and aromatics, fried to perfection.",
-      price:"1.3",
-    },
-    { img: m4,
-      name: "JB-Product",
-       content: "JB-Rawbeans is used in making the best bean pudding or beans fritter, it is made up of combining the Rawbean garnished with peppers and aromatics, fried to perfection.",
-      price:"1.8",
-    },
-   
-   ];
-
-   useEffect(() => {
+ useEffect(() => {
  const timer = setTimeout(() => {
   //setLoading spinner
   setIsLoading(false);
@@ -37,6 +23,9 @@ const ProductListingPage = () => {
  return () => clearTimeout(timer)
  }, []);
 
+const statusTabCart = useSelector(store => store.cart.statusTab);
+
+console.log("StatusTabCart:", statusTabCart);
 
   return (
  <div className='font-sans '>
@@ -61,44 +50,24 @@ const ProductListingPage = () => {
      aria-labelledby='modal-title'
      role='dialog'
      aria-modal='true'>
-         <div className='fixed inset-0 bg-opacity-75'>
-                <div className='fixed inset-0 '>
+         <div className='inset-0 bg-opacity-75'>
+                <div className=' inset-0 '>
                     <div className='flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-8'>
-                            <div className=''>
-                                    <div className='bg-opacity-75  '>
-                                            {/* Sidebar Filters */}
-                                        {/* <aside className="filters">
-                                            Filters for categories, price, popularity 
-                                            <h3>Filter By</h3>
-                                            <div>
-                                                <label>
-                                                    <input type="checkbox" /> Category
-                                                </label>
-                                                <label>
-                                                    <input type="checkbox" /> Price Range
-                                                </label>
-                                                <label>
-                                                    <input type="checkbox" /> Popularity
-                                                </label>
-                                            </div>
-                                        </aside>  */}
+                            <div className='bg-opacity-75'>
+                                    <div className={`transform transition-transform duration-500 ${statusTabCart === false ? "" : "-translate-x-56" }} `}>
+                                        
 
-                                {/* Product Grid and product card */}
-                               <main className="flex flex-wrap justify-center items-center gap-8 mt-8">
+                                     <CartHeader />
+
+                                      <Outlet />
+                                     <CartTab />
+                                     {/* Product Grid and product card */}
+                                      <Home />
+                                    </div>
+                                  
+                                  
+                                      
                                    
-                                   {product.map((prod, index) => (
-                                    <div key={prod.index} className="w-[90%] sm:w-[45%] lg:w-[30%] rounded-lg shadow-xl mt-16">
-                                        <img src={prod.img} alt={prod.name} className='rounded-t-lg'/>
-                                        <div className='p-2'>
-                                        <h4 className='font-bold pt-4 pb-2 px-4 text-left '>{prod.name}</h4>
-                                        <p className='text-left px-4'>{prod.content}</p>
-                                        <p>${prod.price}</p>
-                                        <button className='' onClick>Add to Cart</button>
-                                        </div>
-                                    </div>
-                                    ))} 
-                                </main>  
-                                    </div>
                             </div>
                     </div>
                 </div>

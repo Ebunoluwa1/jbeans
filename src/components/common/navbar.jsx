@@ -1,8 +1,8 @@
  import { Menu, User, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import { useLocation } from 'react-router-dom';
+import { useAuth } from '../services/auth';
+import { useLocation, useMatch } from 'react-router-dom';
 import ImgCard from './imgcard';
 import logo from '../../assets/logo.png'
 import SignIn from './sign-in';
@@ -38,9 +38,43 @@ export const Navbar = () => {
 
 },[]);
 
+ const { auth, signOut } = useAuth();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      const { error } = await signOut();
+      console.log(error);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+          {!auth && (
+              <Link  to="/sign-in">
+                Login
+              </Link>
+            )}
+            {!auth && (
+              <Link to="/log-out">
+                Register
+              </Link>
+            )}
+            {auth && (
+              <Link to="/">
+                Home
+              </Link>
+            )}
+             {auth && (
+              <Link onClick={handleLogout} className='text-sm text-white bg-[#FCE5CD] p-2 rounded-lg'>
+                LogOut
+              </Link>
+            )}
   const { pathname, hash } = useLocation();
-  if (pathname === '/sign-in' || pathname === '/products') return null; 
-  
+  const isSlugRoute = useMatch('/products/:slug');
+
+if (pathname === '/sign-in' || pathname === '/products' || isSlugRoute || pathname === '/sign-up' || pathname === '/forgot-password' || pathname === '/update-password' ) {
+  return null;
+}
 
   return (
     <div className='font-sans '>
@@ -77,7 +111,7 @@ export const Navbar = () => {
         <div className='flex mx-4'>
                           <Link  
                           
-                          to='/sign-in'
+                          to='/sign-up'
                           //  onClick={() => setUser(!user)}
                           className="inline-flex items-center justify-center p-2 rounded-md hover:text-[white] hover:bg-[white] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[white] focus:ring-[white]"
                           >
@@ -112,6 +146,5 @@ export const Navbar = () => {
       )}
 
     </div>
-  );
-}
-
+  )
+  };
