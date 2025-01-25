@@ -12,15 +12,20 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import ImgCard from './imgcard';
 import { useRef, useState, useEffect } from 'react';
+import { setUserEmail } from '../stores/cart'; //import setUserEmail action fromthe store
 import logo from '../../assets/logo.png'
 import { Link } from 'react-router';
 import { Alert } from "@/components/ui/alert"
 import { useNavigate } from 'react-router';
 import { useAuth } from '../services/auth';
+import { useDispatch } from 'react-redux';
 
 const SignIn = () => {
  const [isLoading, setIsLoading] =useState(true);
+ const dispatch= useDispatch()
   const emailRef = useRef(null);
+  console.log('Email in useRef:', emailRef.current);
+
   const passwordRef = useRef(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -42,31 +47,35 @@ const SignIn = () => {
   // }
 const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Email:", "Password:");
       if (loading) return;
-
-  setLoading(true);
-  setErrorMsg("");
-
-    try {
-     
-      if (!emailRef.current?.value || !passwordRef.current?.value ) {
+  if (!passwordRef.current?.value || !emailRef.current?.value) {
         setErrorMsg("Please fill in the fields");
         return;
       }
-      const  { user, session, error }  = await login(emailRef.current.value, passwordRef.current.value);
-       if (!user) {
-      setErrorMsg("Invalid login credentials. Please try again.");
-      return;
-    }
-      if (error) setErrorMsg(error.message);
-      if (user && session) navigate("/");
+  setLoading(true);
+  setErrorMsg("");
+
+   try {
+     const {
+        data: { user, session }, error} = await login(emailRef.current.value, passwordRef.current.value);
+      if (error) setErrorMsg("Email or Password Incorrect");
+    
+     
+       if (user || session) {
+         dispatch(setUserEmail(emailRef.current.value));//dispatching the email into the redux after successful login
+        navigate("/") //navigate to homepage after login
+        return
+      };
     } catch (error) {
-      setErrorMsg(error.message || "Email or Password Incorrect");
+      setErrorMsg(error.message);
     }
     setLoading(false);
   };
   
-
+  if (emailRef.current) {
+    console.log("Email input mounted:", emailRef.current.value);
+  }
 
   return (
     <>
@@ -126,9 +135,12 @@ const handleSubmit = async (e) => {
                 </div>
 
             )}
+            
         <CardFooter className="flex text-center items-center flex-col ">
             <Link to={"/forgot-password"} className='text-#3A2829] hover:underline p-4 cursor-pointer  text-sm sm:text-base'> Forgot your password ?</Link>
-          <Button  disabled={loading} onClick={handleSubmit} type="submit" className='bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4'>{loading ? "Getting signed in..." : "Sign in"}</Button>
+          <Button disabled={loading || !!errorMsg} onClick={handleSubmit} type="submit" className={`bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4 ${loading || errorMsg ? "opacity-50 cursor-not-allowed" : ""}`}>
+            {loading ? "Getting signed in..." : "Sign in"}
+            </Button>
            <div className="w-100 text-center mt-2">
           New User? <Link to={"/sign-up"} className='hover:underline cursor-pointer'>Register</Link>
         </div>

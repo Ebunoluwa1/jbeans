@@ -5,18 +5,8 @@ const AuthContext = createContext({});
 
 export const useAuth = () => useContext(AuthContext);
 
-const login = async (email, password) => {
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
- try{
-     if (error){ throw new Error(error.message  || "Login failed.")};
-//   return data;
-   return { user: data.user, session: data.session, error: null };
-  
-} catch (e) {
-    console.error("Login error:", e);
-    throw e; // Let the caller handle the error
-  }
-}
+const login = async (email, password) => await supabase.auth.signInWithPassword({ email, password });
+
  const signOut =  async () => {
   const { error } = await supabase.auth.signOut();
   if (error) throw new Error(error.message);
@@ -24,13 +14,10 @@ const login = async (email, password) => {
 const updatePassword = (updatedPassword) =>
   supabase.auth.updateUser({ password: updatedPassword });
 
- const passwordReset =  async (email) =>{
-
-  const {error} = await supabase.auth.resetPasswordForEmail(email, {
+ const passwordReset =  async (email) =>await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: "http://localhost:5173/update-password"
   });
-    if (error) throw new Error(error.message);
-}
+  
 
 const AuthProvider = ({ children }) => {
  

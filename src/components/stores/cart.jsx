@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
     items: localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts")) :[],
     statusTab: false
@@ -41,7 +42,19 @@ const cartSlice = createSlice({
      }
     },
 })
-
+const userSlice = createSlice({
+  name: "user",
+  initialState: { email: "" },
+  reducers: {
+    setUserEmail(state, action) {
+      state.email = action.payload;
+    },
+  },
+});
 
 export const { addToCart, changeQuantity, toggleStatusTab} = cartSlice.actions;
+export const { setUserEmail } = userSlice.actions;
+
+
+export const userReducer = userSlice.reducer;
 export default cartSlice.reducer;

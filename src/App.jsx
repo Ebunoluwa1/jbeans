@@ -13,6 +13,7 @@ import SignUp from './components/common/signup';
 import ForgotPassword from './components/common/forgotpassword';
 import AuthRoute from './components/services/authRoute';
 import UpdatePassword from './components/common/updatePassword';
+import Paystack from './components/common/paystack';
 
 
 
@@ -35,7 +36,7 @@ function App() {
              <Route path="/sign-up" element={<SignUp />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/update-password" element={<UpdatePassword />} />
-
+                {/* <Route path="/paystack" element={<Paystack />} /> */}
          </Routes>
            {/* <AuthStatus /> */}
        {/* <CookieS /> */}

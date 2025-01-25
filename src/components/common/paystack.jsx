@@ -1,51 +1,7 @@
-// import React, { useState } from 'react';
-// import { supabase } from './supabaseClient';
-
-// const SignUp = () => {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [message, setMessage] = useState('');
-
-//   const handleSignUp = async () => {
-//     const { data, error } = await supabase.auth.signUp({
-//       email,
-//       password,
-//     });
-
-//     if (error) {
-//       setMessage(`Error: ${error.message}`);
-//     } else {
-//       setMessage('Sign-up successful! Please check your email to confirm.');
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h2>Sign Up</h2>
-//       <input
-//         type="email"
-//         placeholder="Email"
-//         value={email}
-//         onChange={(e) => setEmail(e.target.value)}
-//       />
-//       <input
-//         type="password"
-//         placeholder="Password"
-//         value={password}
-//         onChange={(e) => setPassword(e.target.value)}
-//       />
-//       <button onClick={handleSignUp}>Sign Up</button>
-//       {message && <p>{message}</p>}
-//     </div>
-//   );
-// };
-
-// export default SignUp;
-
-import { useRef, useState , useEffect} from "react";
+/* eslint-disable no-undef */
+import { useRef, useState } from "react";
 
 import { Link } from "react-router-dom";
-import { supabase } from "../config/supabaseClient";
 import {
   Card,
   CardContent,
@@ -54,69 +10,36 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Alert } from "@/components/ui/alert"
-
+import { PaystackButton } from 'react-paystack';
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import ImgCard from './imgcard';
 import logo from '../../assets/logo.png'
-import { Button } from '@/components/ui/button';
 
-const SignUp = () => {
+const Paystack = () => {
   const emailRef = useRef(null);
-  
- const [isLoading, setIsLoading] =useState(true);
-  const passwordRef = useRef(null);
-  const confirmPasswordRef = useRef(null);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [isLoading, setIsLoading] =useState(true);
+  const amountRef = useRef(null);
+  const fullNameRef = useRef(null);
+  const phoneNumberRef = useRef(null);
+ const [errorMsg, setErrorMsg] = useState("");
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
-
-   useEffect(() => {
-
   
-  const timer = setTimeout(() => {
-//setLoading spinner
-  setIsLoading(false);
-  }, 2000)
- return () => clearTimeout(timer)
- }, []);
+  const publicKey = 'pk_test_0768856f9f0dc26115478a71009998b9b266e038'
+   
+    const componentProps = {
+      reference: (new Date()).getTime().toString(),
+      email,
+      amount: amount * 100,
+      metadata: {
+      fullName,
+      phoneNumber,
+      },
+      publicKey,
+      text: 'Pay Now',
 
-  const register = (email, password) => supabase.auth.signUp({ email, password });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (
-      
-      !emailRef.current?.value || !passwordRef.current?.value ||
-      !confirmPasswordRef.current?.value
-    ) {
-      setErrorMsg("Please fill all the fields");
-      return;
-    }
-    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      setErrorMsg("Passwords do not match");
-      return;
-    }
-    try {
-      
-      setLoading(true);
-      setErrorMsg("");
-
-      const { data, error } = await register(
-        emailRef.current.value,
-        passwordRef.current.value
-      );
-          if (error) throw error;
-          setMsg(
-          "Registration Successful. Check your email to confirm your account"
-        );
-     
-    } catch (error) {
-      setErrorMsg( error.message || "Error in Creating Account");
-    }
-    setLoading(false);
   };
-
   return (
     <>
     {isLoading ?
@@ -145,26 +68,31 @@ const SignUp = () => {
                         </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={handleSubmit}>
+                    <form >
                     <div className="grid w-full items-center gap-4">
                         <div className="flex flex-col space-y-1">
                         <div>
-                            <h3 className='py-4  text-sm sm:text-base'> Sign up with your email and password.</h3> 
+                             <h3 className='py-4  text-sm sm:text-base'> Make your payment here.</h3> 
                         </div>
                         <Label htmlFor="email"  className="text-sm sm:text-base">Email</Label>
                         <Input  type="email" ref={emailRef} required  className='ring-gray-50 w-full' id="email" placeholder=" user@gmail.com" />
                         </div>
 
                         <div className="flex flex-col space-y-1">
-                        <Label htmlFor="password"   className="text-sm sm:text-base">Password</Label>
-                        <Input id="password" type="password" ref={passwordRef} required placeholder="*****" className="w-full"/>
+                        <Label htmlFor="Full Name"   className="text-sm sm:text-base">Full Name</Label>
+                        <Input id="full-name" type="fullname" ref={fullNameRef} required placeholder="John Doe" className="w-full"/>
                         </div>
 
                         <div className="flex flex-col space-y-1">
-                        <Label htmlFor="password"  className="text-sm sm:text-base">Confirm Password</Label>
-                        <Input id="confirm-password" type="password" ref={confirmPasswordRef} required placeholder="*****"    className="w-full"/>
-                        
-                        </div>
+                        <Label htmlFor="amount" className="text-sm sm:text-base">Amount</Label>
+                        <Input id="amount" type="amount" ref={amountRef} required placeholder="amount" className="w-full"/>
+                       </div>
+
+                        <div className="flex flex-col space-y-1">
+                        <Label htmlFor="phone-number" className="text-sm sm:text-base">Phone Number</Label>
+                        <Input id="phone-number" type="phonenumber" ref={phoneNumberRef} required placeholder="phonenumber" className="w-full"/>
+                       </div>
+
                     </div>
                     </form>
                 </CardContent>
@@ -188,14 +116,15 @@ const SignUp = () => {
             )}
          <CardFooter className="flex text-center items-center flex-col ">
          
-              <Button disabled={loading || !!msg || errorMsg} onClick={handleSubmit} type="submit" className={`bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4 ${loading || msg || errorMsg ? "opacity-50 cursor-not-allowed" : ""}`}>
-                {loading ? "Registering..." : "Register"}
+              {/* <Button disabled={loading || !!msg || errorMsg} onClick={handleSubmit} type="submit" className={`bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4 ${loading || msg || errorMsg ? "opacity-50 cursor-not-allowed" : ""}`}>
+                {/* {loading ? "" : ""} */}
                 
-              </Button>
+              {/* </Button> */}
             
-           <div className="w-100 text-center ">
+           {/* <div className="w-100 text-center ">
                 Already a User? <Link to={"/sign-in"} className="hover:underline">Sign in</Link>
-            </div>
+            </div> */}
+            <PaystackButton type='submit' {...componentProps} />
         </CardFooter>
        
       </Card>
@@ -214,4 +143,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Paystack;

@@ -54,12 +54,21 @@ const UpdatePassword = () => {
         setMsg("Password updated successfully.");
         navigate("/");
       } 
+      if (error) {
+      if (error.message.includes("password is too weak")) {
+        throw new Error("Your password is too weak. Please choose a stronger one.");
+      } else {
+        throw new Error("Failed to update password. Please try again.");
+      }
+    }
+    return true;
       }catch (e) {
         //handle unexpected errors
       console.log(e);
       console.log("Unexpected error: ",e);
       setErrorMsg("Error in Updating Password. Please try again");
     }
+    
     //reset loading
     setLoading(false);
   };
@@ -141,7 +150,7 @@ const UpdatePassword = () => {
                           )}
         <CardFooter className="flex text-center items-center flex-col ">
            
-              <Button disabled={loading} onClick={handleSubmit} type="submit" className='bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4'>
+              <Button disabled={loading || !!msg || !!errorMsg} onClick={handleSubmit} type="submit" className={`bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4 ${loading || msg || errorMsg ? "opacity-50 cursor-not-allowed" : ""}`}>
               {loading ? 'Updating...' : 'Update Password' }
               </Button>
             

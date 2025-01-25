@@ -51,7 +51,7 @@ const ForgotPassword = () => {
      //success message
 
       console.log(data); 
-  setMsg("Password reset has been sent to your email.");
+  setMsg("Password reset has been sent sucessfully to your email.Kindly check your inbox");
     } catch (e) {
         //handle unexpected errors
       console.log(e);
@@ -125,9 +125,10 @@ const ForgotPassword = () => {
             )}
         <CardFooter className="flex text-center items-center flex-col ">
             <div className="text-center mt-2">
-              <Button disabled={loading} onClick={handleSubmit} type="submit" className='bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4'>
-              {loading ? 'Sending Reset Link' : 'Reset Password' }
+              <Button disabled={loading || !!msg} onClick={handleSubmit} type="submit" className={`bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4 ${loading || msg  ? "opacity-50 cursor-not-allowed" : ""}`}> 
+                {loading ? 'Sending Reset Link' : 'Reset Password' }
               </Button>
+              
             </div>
              <div className="w-100 text-center mt-2">
           Back to Login? <Link to={"/sign-in"} className='hover:underline'>Sign in</Link>

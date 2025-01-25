@@ -2,10 +2,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../services/auth';
-import { useLocation, useMatch } from 'react-router-dom';
+import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 import ImgCard from './imgcard';
 import logo from '../../assets/logo.png'
 import SignIn from './sign-in';
+import { LandingPage } from '../../pages';
 
 
 
@@ -20,7 +21,7 @@ export const Navbar = () => {
  const [isOpen, setIsOpen] = useState(false);
   const [mobile, setMobile] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
+  const navigate = useNavigate();
  useEffect(() => {
   const checkMobile = () =>{
     setMobile(window.innerWidth < 768);
@@ -44,6 +45,7 @@ export const Navbar = () => {
     e.preventDefault();
     try {
       const { error } = await signOut();
+      // navigate("/sign-in");
       console.log(error);
     } catch (error) {
       console.log(error);
@@ -55,7 +57,7 @@ export const Navbar = () => {
               </Link>
             )}
             {!auth && (
-              <Link to="/log-out">
+              <Link to="/sign-up">
                 Register
               </Link>
             )}
@@ -117,7 +119,7 @@ if (pathname === '/sign-in' || pathname === '/products' || isSlugRoute || pathna
                           >
                             <User className='block h-6 w-6 text-[#3A2829]'  onClick={() => setShowModal(true)} />
 
-                          {showModal && <SignIn showModal={showModal} />}
+                          {showModal && <SignIn showModal={showModal} /> }
 
                           </Link>
           
