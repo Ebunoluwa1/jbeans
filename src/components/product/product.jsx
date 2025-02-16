@@ -1,29 +1,38 @@
 
-import m4 from '../../assets/product.jpg'
-import m5 from '../../assets/jb-flour.jpeg'
-import m6 from '../../assets/jb-washedbean.jpeg'
+import m5 from '../../assets/frozenAkara.jpeg'
+import m4 from '../../assets/beans-flour.jpeg'
+import m6 from '../../assets/frozenPeeledbeans.jpeg'
+import m7 from '../../assets/ovenready-moimoi.jpeg'
+
 
 export const product = [
-    { id: 1,
+   { id: 1,
+      img: m4,
+      name: "Beans Flour",
+      content: "Beans Flour is used in making the best Frozen beans fritter (akara), it is made up of combining the JB-flour garnished with peppers and aromatics, fried to perfection, the best savour.",
+      price:"1.7",
+      slug:'Beans Flour'
+    },
+    { id: 2,
       img: m5,
-      name: "JB-Flour",
-      content: "JB-Flour is used in making the best Frozen beans fritter (akara), it is made up of combining the JB-flour garnished with peppers and aromatics, fried to perfection, the best savour.",
+      name: "Frozen Akara",
+      content: "Frozen Akara is used in making the best Frozen beans fritter (akara), it is made up of combining the JB-flour garnished with peppers and aromatics, fried to perfection, the best savour.",
       price:"1.5",
-      slug:'JB-Flour'
+      slug:'Frozen Akara'
     },
-     { id:2,
+     { id:3,
         img: m6,
-      name: "JB-Rawbeans",
-        content: "JB-Rawbeans is used in making the best bean pudding or beans fritter, it is made up of combining the Rawbean garnished with peppers and aromatics, cooked or fried,the best savour.",
+      name: "Frozen  Peeledbeans",
+        content: "Frozen Peeledbeans is used in making the best bean pudding or beans fritter, it is made up of combining the Rawbean garnished with peppers and aromatics, cooked or fried,the best savour.",
         price:"1.3",
-          slug:'JB-Rawbeans'
+          slug:'Frozen Peeledbeans'
     },
-    { id:3,
-     img: m4,
-      name: "JB-Product",
-       content: "JB-Rawbeans is used in making the best bean pudding or beans fritter, it is made up of combining the Rawbean garnished with peppers and aromatics,cooked or fried,the best savour.",
+    { id:4,
+     img: m7,
+      name: "Ovenready MoiMoi",
+       content: "Ovenready MoiMoi is used in making the best bean pudding or beans fritter, it is made up of combining the Rawbean garnished with peppers and aromatics,cooked or fried,the best savour.",
       price:"1.8",
-      slug:'JB-Product'
+      slug:'Ovenready MoiMoi'
     },
    
    ];

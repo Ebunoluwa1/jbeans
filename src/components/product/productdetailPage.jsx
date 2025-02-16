@@ -78,12 +78,12 @@ console.log("StatusTabCart:", statusTabCart);
                         <CartTab />
                            <>
         <div className="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8 mt-8">
-          <div className="relative max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="relative max-w-4xl  mx-auto bg-white rounded-lg shadow-lg sm:overflow-hidden lg:overflow-hidden xl:overflow-hidden ">
           
             {/* Product Image */}
             <img
             src={detail.img} alt={detail.img}
-              className="w-full h-[80vh] object-cover"
+              className="w-fit mx-auto object-cover"
             />
 
             {/* Product Information */}
@@ -93,7 +93,7 @@ console.log("StatusTabCart:", statusTabCart);
               <p className="text-lg font-semibold text-gray-800">${detail.price}</p>
             
               {/* Price and Add to Cart */}
-              <div className="my-6 flex items-center justify-between">
+              <div className="my-6 flex items-center justify-between flex-col lg:flex-row xl:flex-row  sm:flex-row">
                 {/* Quantity Selector */}
                   <div className='flex gap-5 px-2'>
                       <div className='flex gap-2 justify-center items-center '>
@@ -101,9 +101,9 @@ console.log("StatusTabCart:", statusTabCart);
                           <span className='bg-gray-200 h-full w-10 font-bold text-xl rounded-xl flex justify-center items-center'>{quantity}</span>
                           <button className='bg-gray-100 h-full w-10 font-bold text-xl rounded-xl flex justify-center items-center' onClick={handlePlusQuantity}>+</button>
                       </div>
-              </div> 
+                  </div> 
                 <main>
-                  <button className="bg-[#3A2829] text-white px-7 py-3 rounded-xl shadow-2xl focus:hover:bg-white focus:hover:text-[#3A2829] " onClick={handleAddToCart}>
+                  <button className="bg-[#3A2829] text-white px-7 py-3 rounded-xl shadow-2xl focus:hover:bg-white focus:hover:text-[#3A2829] my-4 " onClick={handleAddToCart}>
                   Add to Cart
                 </button>
                 </main>

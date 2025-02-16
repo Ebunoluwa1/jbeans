@@ -9,9 +9,11 @@ import ImgCard from '../components/common/imgcard';
 import m1 from '../assets/bebW.jpeg'
 import m2 from '../assets/chickpea.jpeg'
 import m3 from '../assets/lentilW1.jpg'
-import m4 from '../assets/product.jpg'
-import m5 from '../assets/jb-flour.jpeg'
-import m6 from '../assets/jb-washedbean.jpeg'
+import m4 from '../assets/frozenAkara.jpeg'
+import m5 from '../assets/beans-flour.jpeg'
+import m6 from '../assets/frozenPeeledbeans.jpeg'
+import m7 from '../assets/ovenready-moimoi.jpeg'
+
 import { useNavigate } from 'react-router-dom';
 
 function Testimonial({ name, content }) {
@@ -31,28 +33,28 @@ function Testimonial({ name, content }) {
 
  const LandingPage = () => {
 
-   const testimonials = [
-    {
-      name: "-Emmanuel",
-      content:
-        "As someone transitioning to a plant-based diet, JustBeans has been a lifesaver. The chickpeas are perfect for my homemade hummus and curries. I appreciate the freshness and the detailed cooking tips they provide. It's a game-changer!",
-    },
-    {
-      name: "-Emmanuella",
-      content:
-        "JustBeans has completely transformed my cooking! The black-eyed beans are so creamy and flavorful – they’ve become a staple in my stews. I also love how easy it is to order and the quality is always top-notch. Highly recommend to anyone looking for premium legumes!",
-    },
-    {
-      name: "-Pamela",
-      content:
-        "The lentils from JustBeans are the best I’ve ever tried. They cook so quickly and taste amazing in my salads and soups. Plus, the storage tips they share ensure I never waste a single bean. Fantastic service and quality!",
-    },
-     {
-      name: "-Mark K",
-      content:
-        "I was skeptical at first, but JustBeans exceeded my expectations. The variety they offer is incredible, and every product I’ve tried is fresh and packed with flavor. Their focus on health and sustainability really sets them apart. I’m a loyal customer now!",
-    },
-  ];
+  //  const testimonials = [
+  //   {
+  //     name: "-Emmanuel",
+  //     content:
+  //       "As someone transitioning to a plant-based diet, JustBeans has been a lifesaver. The chickpeas are perfect for my homemade hummus and curries. I appreciate the freshness and the detailed cooking tips they provide. It's a game-changer!",
+  //   },
+  //   {
+  //     name: "-Emmanuella",
+  //     content:
+  //       "JustBeans has completely transformed my cooking! The black-eyed beans are so creamy and flavorful – they’ve become a staple in my stews. I also love how easy it is to order and the quality is always top-notch. Highly recommend to anyone looking for premium legumes!",
+  //   },
+  //   {
+  //     name: "-Pamela",
+  //     content:
+  //       "The lentils from JustBeans are the best I’ve ever tried. They cook so quickly and taste amazing in my salads and soups. Plus, the storage tips they share ensure I never waste a single bean. Fantastic service and quality!",
+  //   },
+  //    {
+  //     name: "-Mark K",
+  //     content:
+  //       "I was skeptical at first, but JustBeans exceeded my expectations. The variety they offer is incredible, and every product I’ve tried is fresh and packed with flavor. Their focus on health and sustainability really sets them apart. I’m a loyal customer now!",
+  //   },
+  // ];
   const beans = [
     { img: m1,
       name: "-BLACK-EYED BEAN",
@@ -145,10 +147,10 @@ function Testimonial({ name, content }) {
   >
     <h2 className="text-2xl md:text-3xl font-bold text-[#3A2829] text-center">OUR PRODUCTS </h2>
     <div className="flex flex-wrap justify-center items-center gap-8 mt-8">
-      {[m4, m5, m6].map((img, index) => (
+      {[m4, m5, m6, m7].map((img, index) => (
          
         <div key={index} className="w-[90%] sm:w-[45%] lg:w-[30%]">
-          <ImgCard src={img} className="border-8 border-[#3A2829]" />
+          <ImgCard src={img} className="h-[50%] border-8 border-[#3A2829]" />
         </div>
       ))}
     </div>
@@ -196,17 +198,17 @@ function Testimonial({ name, content }) {
 
  
 
- 
+{/*  
       {/* button */}
-       <div className='flex flex-col gap-4 justify-center items-center'>
+       {/* <div className='flex flex-col gap-4 justify-center items-center'>
              <Button onClick={ handleProducts} size='md' color='primary' base='true' className='mt-8 mb-2 w-[40%] hover:opacity-80 focus:opacity-80 '>
              Try for $3
              </Button>
               <Text text='Free Postage' className='mb-2 items-center cursor-pointer' />
-        </div>
+        </div> */} 
 
          {/* Reviews Section */}
-          <div id='Reviews' className="text-center mt-12 px-4">
+          {/* <div id='Reviews' className="text-center mt-12 px-4">
                 <h3 className="font-bold text-2xl md:text-3xl mb-4">
                  REVIEWS ABOUT OUR PRODUCTS
                 </h3>
@@ -233,7 +235,7 @@ function Testimonial({ name, content }) {
                       <Text text='Free Postage' className='mb-2 items-center cursor-pointer' />
                 </div>
 
-          </div>
+          {/* </div>  */}
 
            
 
