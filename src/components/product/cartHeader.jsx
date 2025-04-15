@@ -33,12 +33,16 @@ const navigate = useNavigate();
       navigate('/');
     }
  }
+  const handleCartClick = () => {
+    navigate('/cart');
+  };
  useEffect(() => {
     // Save the current location as the "previous path"
     sessionStorage.setItem('previousPath', location.pathname);
   }, [location.pathname]);
   
  const dispatch = useDispatch()
+
 const handleOpenTabCart = () => {
   dispatch(toggleStatusTab());
   console.log('toggle!')
@@ -51,8 +55,9 @@ const handleOpenTabCart = () => {
         <p className='text-lg font-semibold'> Products.</p>
        </div>
        {/* button */}
-       <div className='w-10 h-10 bg-gray-100 rounded-full flex justify-center items-center relative' onClick={handleOpenTabCart}>
-        <ShoppingCart className='w-8 ' />
+       
+       <div onClick={handleOpenTabCart} className='w-10 h-10 bg-gray-100 rounded-full flex justify-center items-center relative' >
+        <ShoppingCart className='w-8 '  />
          <span className='absolute top-2/3 bg-red-500 text-white text-sm w-5 h-5 rounded-full justify-center flex items-center'>{totalQ}</span>
        </div>
     </div>

@@ -15,8 +15,7 @@ import { useState, useEffect, useRef } from 'react';
 import logo from '../../assets/logo.png';
 import { useAuth } from '../services/auth';
 import {Alert} from "@/components/ui/alert"
-import { Link } from 'react-router';
-import { useNavigate } from 'react-router';
+import { useNavigate,Link } from 'react-router';
 
 const UpdatePassword = () => {
  const [isLoading, setIsLoading] =useState(true);
@@ -30,48 +29,43 @@ const UpdatePassword = () => {
   const navigate = useNavigate();
 
 
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-     if (loading) return; // Prevent multiple clicks
-
+const handleSubmit = async (e) => {
+  e.preventDefault();
   setLoading(true);
-  setMsg("");
- 
-    try {
-        if (!passwordRef.current?.value || !confirmPasswordRef.current?.value) {
-      setErrorMsg("Please fill all the fields");
-      return;
-    }
-    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      setErrorMsg("Passwords doesn't match. Try again");
+  setErrorMsg('');
+  setMsg('');
+
+  try {
+    if (!passwordRef.current?.value || !confirmPasswordRef.current?.value) {
+      setErrorMsg('Please fill all the fields');
       setLoading(false);
       return;
     }
-      const { data, error } = await updatePassword(passwordRef.current.value);
-    if (!error) {
-        setMsg("Password updated successfully.");
-        navigate("/");
-      } 
-      if (error) {
-      if (error.message.includes("password is too weak")) {
-        throw new Error("Your password is too weak. Please choose a stronger one.");
-      } else {
-        throw new Error("Failed to update password. Please try again.");
-      }
+
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      setErrorMsg("Passwords don't match. Try again.");
+      setLoading(false);
+      return;
     }
-    return true;
-      }catch (e) {
-        //handle unexpected errors
-      console.log(e);
-      console.log("Unexpected error: ",e);
-      setErrorMsg("Error in Updating Password. Please try again");
+
+    const { data, error } = await updatePassword(passwordRef.current.value);
+
+    console.log('Supabase Response:', { data, error });
+
+    if (error) {
+      setErrorMsg(error.message || 'Failed to update password.');
+    } else {
+      setMsg('Password updated successfully.');
+      setTimeout(() => navigate('/'), 2000);
     }
-    
-    //reset loading
-    setLoading(false);
-  };
+  } catch (e) {
+    console.error('Unexpected error:', e);
+    setErrorMsg('Error in updating password. Please try again.');
+  }
+
+  setLoading(false);
+};
+
 
  useEffect(() => {
  const timer = setTimeout(() => {

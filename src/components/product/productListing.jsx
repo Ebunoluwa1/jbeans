@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import CartHeader from './cartHeader';
 
 import Home from '../../pages/home';
-import { Outlet } from 'react-router';
+import { Outlet ,Link} from 'react-router';
 import CartTab from './cartTab';
 import { useSelector , useDispatch} from 'react-redux';
 import { toggleStatusTab } from '../stores/cart';
@@ -13,7 +13,7 @@ import { toggleStatusTab } from '../stores/cart';
 // Product Listing Page
 const ProductListingPage = () => {
     
- const [isLoading, setIsLoading] =useState(true);
+ const [isLoading, setIsLoading] = useState(true);
 
  useEffect(() => {
  const timer = setTimeout(() => {
@@ -33,9 +33,9 @@ console.log("StatusTabCart:", statusTabCart);
             <div className='flex items-center text-center justify-center h-8 w-full'>
                
                 <div className='font-bold text-[#3A2829] text-center flex items-center justify-center cursor-pointer hover:opacity-45'>
-                    <div className=''> 
+                    <Link to='/' className=''> 
                         <ImgCard src={logo} className=' w-14 '  /> 
-                    </div>
+                    </Link>
                     <span className='italic font-medium '>Just</span>Beans!
                 </div>
            </div>

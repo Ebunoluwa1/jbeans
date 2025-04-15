@@ -11,8 +11,20 @@ const login = async (email, password) => await supabase.auth.signInWithPassword(
   const { error } = await supabase.auth.signOut();
   if (error) throw new Error(error.message);
 };
-const updatePassword = (updatedPassword) =>
-  supabase.auth.updateUser({ password: updatedPassword });
+
+const updatePassword = async (newPassword) => {
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassword
+  });
+
+  if (error) {
+    console.error('Password update error:', error.message);
+    return { data, error };
+  }
+
+  return { data };
+};
+
 
  const passwordReset =  async (email) =>await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: "http://localhost:5173/update-password"

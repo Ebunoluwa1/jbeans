@@ -3,24 +3,29 @@
 import React from 'react';
 import VideoPlayer from '../components/landing/video';
 import { Button } from '../components/common/button';
-import { Calendar, CookingPot } from 'lucide-react';
+import { Calendar, CookingPot, Facebook, Instagram, Twitter } from 'lucide-react';
 import Text from '../components/common/text';
 import ImgCard from '../components/common/imgcard';
-import m1 from '../assets/bebW.jpeg'
-import m2 from '../assets/chickpea.jpeg'
-import m3 from '../assets/lentilW1.jpg'
-import m4 from '../assets/frozenAkara.jpeg'
+import logo from '../assets/logo.png'
+import egg from '../assets/eggmoimoi.jpeg'
+import m3 from '../assets/jbpkg.jpg'
+import m2 from '../assets/chmoi.jpg'
+import m1 from '../assets/taste.jpg'
+// import m4 from '../assets/.jpeg'
 import m5 from '../assets/beans-flour.jpeg'
 import m6 from '../assets/frozenPeeledbeans.jpeg'
-import m7 from '../assets/ovenready-moimoi.jpeg'
+import moi from '../assets/spicymincedmeat.jpeg'
+import frozen from '../assets/frozen akara.jpeg'
+import fried from '../assets/fried akara.jpeg';
 
 import { useNavigate } from 'react-router-dom';
+import Moisection from '../components/common/moisection';
+import Akarasection from '../components/common/akarasection';
+import AnimateWrapper from '../components/common/animateWrapper';
+import AnimateText from '../components/common/animateText';
+import useScrollToHash from '../hooks/useScrollToHash';
 
-function Testimonial({ name, content }) {
-
-
-
-
+function Testimonial() {
 
   return (
     <div className="w-full bg-[#e5e5e5] border shadow-md rounded-xl p-6 ">
@@ -32,7 +37,8 @@ function Testimonial({ name, content }) {
 }
 
  const LandingPage = () => {
-
+  useScrollToHash();
+ 
   //  const testimonials = [
   //   {
   //     name: "-Emmanuel",
@@ -55,38 +61,54 @@ function Testimonial({ name, content }) {
   //       "I was skeptical at first, but JustBeans exceeded my expectations. The variety they offer is incredible, and every product I’ve tried is fresh and packed with flavor. Their focus on health and sustainability really sets them apart. I’m a loyal customer now!",
   //   },
   // ];
+ 
   const beans = [
     { img: m1,
-      name: "-BLACK-EYED BEAN",
+      name: "Taste",
       content:
-        "Black-Eyed Beans are rich in protein and dietary fiber, and their creamy texture and earthy flavor provide a comforting touch to any meal. Nutritious and versatile, they are high in folate, iron, and potassium, making them a healthy choice. These beans are a staple for traditional dishes like akara (bean cakes), adding both flavor and nutrition",
+        "Fresh & Flavorful – Made from natural ingredients with no artificial preservatives or additives. Crispy Outside, Soft & Fluffy Inside which allows you to enjoy the perfect texture in every bite.",
         borderColor: "border-yellow-500",
     },
     {
       img: m2,
-      name: "-CHICKPEA",
+      name: "Nutrition",
       content:
-        "Chickpeas are a protein-packed legume celebrated for their nutty flavor and smooth texture. Ideal for hummus, curries, or as a roasted snack, they are a favorite in plant-based diets. Chickpeas are rich in antioxidants and essential minerals like magnesium and phosphorus, making them a key ingredient in popular dishes.",
+        "Nutritious & Plant-Based – High in protein, fiber, and essential nutrients.Gluten-Free & No Flour Added, 100% made from black-eyed beans with no fillers.",
         borderColor: "border-green-600",
     },
     {
       img: m3,
-      name: "-LENTIL",
+      name: "Packaging",
       content:
-        "Lentils are a quick-cooking, nutrient-dense powerhouse. Their mild, earthy flavor makes them versatile for soups, salads, and grain bowls. Packed with protein and fiber, they support a healthy balanced diet, manage cholesterol levels.Known for promoting heart health and aiding digestion,they are a perfect addition to any meal.",
+        "Each pack contains pre-molded, frozen(or fried/cooked) Akara/ moimoi batter, ensuring uniform frying. Keep frozen until ready to use. No need to thaw—just fry straight from frozen. Available in small, medium, and large packs to suit individuals, families, and bulk buyers.",
         borderColor: "border-purple-600",
     },
     
   ];
-   const navigate = useNavigate();
+
+  const navigate = useNavigate();
   function handleProducts(){
     
     navigate('/products')
   }
+
+   const handleClick = () => {
+    navigate('/cart'); // adjust the route to your actual cart path
+  };
+
+  const products = [
+  { img: m5, name: 'Beans Flour', price: '£5.99 GBP' },
+  { img: frozen, name: 'Frozen Akara', price: '£8.55 GBP' },
+  { img: fried, name: 'Fried Akara', price: '£11.80 GBP' },
+  { img: moi, name: 'Moi Moi', price: '£5.0 GBP' },
+];
+
   return (
-    <div className="block">
-  {/* Video Player */}
-  <VideoPlayer />
+    <AnimateWrapper>
+    <div className="block ">
+   <div className='mb-2'>
+    <VideoPlayer />
+   </div>
 
 
   {/* Call-to-Action */}
@@ -111,9 +133,9 @@ function Testimonial({ name, content }) {
   <div className="mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center items-center gap-8 mt-8 mb-8">
     {beans.map((bean, index) => (
       <div key={index} className="w-[90%] sm:w-[45%] lg:w-[30%]">
-        <ImgCard src={bean.img} className={`border-8 ${bean.borderColor}`} />
+        <ImgCard src={bean.img} className={`border-4 w-full h-44  ${bean.borderColor}`} />
            <main className="text-center mt-4">
-             <h2 className="font-bold text-xl md:text-2xl">{bean.name}</h2>
+             {/* <h2 className="font-bold text-xl md:text-2xl">{bean.name}</h2> */}
              <p className="px-2 text-sm md:text-base leading-relaxed">
              {bean.content}
             </p>
@@ -140,17 +162,95 @@ function Testimonial({ name, content }) {
     />
   </div>
 
+   {/* talk about each Moi products */}
+  <div className='m-8'>
+     <Moisection />
+  </div>
+
+   {/* shop now  */}
+   <div className="p-6 md:p-10 rounded-md bg-[#FCE5CD] w-full h-full">
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        {/* Text & Button Section */}
+        <div className="relative text-center md:text-left flex-1">
+          <AnimateText 
+          text='Engage authenticity with great taste!'
+          className="text-2xl md:text-4xl lg:text-5xl font-bold text-[#3A2829] leading-tight" />
+        
+          
+          <Button
+            onClick={handleProducts}
+            size="md"
+            color="primary"
+            base="true"
+            className="mt-6 md:mt-8 mb-2 w-full sm:w-[60%] md:w-[50%] lg:w-[40%] hover:opacity-80 focus:opacity-80"
+          >
+            Shop Now
+          </Button>
+        </div>
+
+        {/* Image Section */}
+        <div className="relative mt-6 md:mt-0 flex justify-center md:justify-end flex-1">
+          <img
+            src={egg}
+            alt="Delicious egg-based dish"
+            className="h-40 w-72 md:h-48 md:w-80 lg:h-56 lg:w-96 rounded-3xl shadow-lg object-cover"
+          />
+        </div>
+      </div>
+   </div>
+
+{/* akara section */}
+   <div className='m-8'>
+    <Akarasection />
+   </div>
+  
+  {/* our services */}
+    <div className='my-4'>
+      <h2 className="text-2xl md:text-3xl font-bold text-[#3A2829] text-center my-4">OUR SERVICES </h2>
+         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mx-4 '>
+            <div className='bg-[#3A2829] p-4 text-white shadow-lg hover:scale-90 rounded-lg hover:opacity-80 focus:opacity-80 transition-transform duration-300 transform'>
+                Retail & Bulk Orders – Perfect for individuals, families, and food lovers.
+            </div>
+            <div className='bg-[#FCE5CD] text-[#3A2829] p-4 shadow-lg rounded-lg hover:scale-90 hover:opacity-80 focus:opacity-80 transition-transform duration-300 transform'> Event Catering – We cater for weddings, birthdays, family gatherings, corporate events, and more with freshly made Moi Moi and Akara.</div>
+            <div className='bg-[#FF611D] hover:scale-90 text-white p-4 shadow-lg rounded-lg hover:opacity-80 focus:opacity-80 transition-transform duration-300 transform'>
+              Customized Orders – Choose your favorite toppings, fillings, and portion sizes.
+            </div>
+             <div className='shadow-lg hover:transition-opacity hover:duration-700 hover:ease-in-out hover:scale-90 rounded-lg text-[#3A2829] bg-gray-200 p-4 hover:opacity-80 focus:opacity-80 transition-transform duration-300 transform'>Frozen & Ready-to-Eat Options – Enjoy convenience with pre-cooked or fresh Akara and Moi Moi, ready to heat and serve.</div>
+         </div>
+    </div>
+
   {/* Ellipse Background Section */}
   <div 
-    className="bg-[#FCE5CD] w-full h-auto py-8" 
+    className="bg-[#FCE5CD] w-full h-auto py-8 mt-12" 
     style={{ clipPath: 'ellipse(180% 100% at 50% 100%)' }}
   >
-    <h2 className="text-2xl md:text-3xl font-bold text-[#3A2829] text-center">OUR PRODUCTS </h2>
-    <div className="flex flex-wrap justify-center items-center gap-8 mt-8">
-      {[m4, m5, m6, m7].map((img, index) => (
-         
-        <div key={index} className="w-[90%] sm:w-[45%] lg:w-[30%]">
-          <ImgCard src={img} className="h-[50%] border-8 border-[#3A2829]" />
+
+    <h2 className="text-2xl md:text-3xl  font-bold text-[#3A2829] text-center">OUR PRODUCTS </h2>
+    {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mx-auto mt-8 cursor-pointer">
+      {[ m5,frozen, fried, moi ].map((img, index) => (
+        <div key={index} className="mx-4 ">
+          <img src={img} className="w-full h-80 border-4 border-[#3A2829] transition-transform duration-300 transform hover:scale-110" />
+        </div>
+      ))}
+    </div> */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mx-auto mt-8">
+      {products.map((item, index) => (
+        <div
+          key={index}
+          onClick={handleClick}
+          className="relative mx-4 cursor-pointer group"
+        >
+          <img
+            src={item.img}
+            alt={item.name}
+            className="w-full h-80 border-4 border-[#3A2829] transition-transform duration-300 transform group-hover:scale-110"
+          />
+          {/* Hover Info */}
+          <div className="absolute bottom-0 left-0 w-full bg-black 
+          bg-opacity-60 text-white px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <h3 className="text-lg font-semibold">{item.name}</h3>
+            <p className="text-sm">{item.price}</p>
+          </div>
         </div>
       ))}
     </div>
@@ -168,8 +268,7 @@ function Testimonial({ name, content }) {
       size="md" 
       color="sec" 
       base="true" 
-      className="mt-8 mb-2 w-full sm:w-[60%] lg:w-[40%] hover:opacity-80 focus:opacity-80"
-    >
+      className="mt-8 mb-2 w-full sm:w-[60%] lg:w-[40%] hover:opacity-80 focus:opacity-80 transition-transform duration-300 transform hover:scale-105 hover:bg-[#3A2829] hover:text-white">
       Try for $3
     </Button>
     <Text 
@@ -183,13 +282,13 @@ function Testimonial({ name, content }) {
     <div className="flex flex-col items-center text-center">
       <CookingPot className="text-[#3A2829] m-4" />
       <p className="text-[#3A2829]">
-        Following our recipes, combine our kits with 4-6 items from your fridge or cupboard.
+        Fry our handcrafted meal, pair with pap (ogi), custard, bread, or rice for a classic meal.
       </p>
     </div>
     <div className="flex flex-col items-center text-center">
       <Calendar className="text-[#3A2829] m-4" />
       <p className="text-[#3A2829]">
-        After your first box, change, pause, or cancel your subscription at any time. No commitment and hassle-free.
+       Fry directly from frozen in hot oil for a crispy, golden-brown finish. Get packs to savour a wholesome, nutritious bite
       </p>
     </div>
   </div>
@@ -232,14 +331,14 @@ function Testimonial({ name, content }) {
                     <Button size='md' onClick={handleProducts} color='primary' base='true' className='mt-8 mb-2 w-[40%] hover:opacity-80 focus:opacity-80 '>
                     Try for $3
                     </Button>
-                      <Text text='Free Postage' className='mb-2 items-center cursor-pointer' />
+                    <Text text='Free Postage' className='mb-2 items-center cursor-pointer' />
                 </div>
 
           {/* </div>  */}
 
            
 
-        <div className="flex flex-wrap justify-between gap-8 px-4 py-8 sm:gap-12 md:gap-16">
+        <div className="flex flex-wrap justify-between gap-8 px-4 py-8 sm:gap-12 md:gap-16" id='contacts'>
             {/* Column 1 */}
             <div className="w-full sm:w-auto">
               <ul>
@@ -248,29 +347,14 @@ function Testimonial({ name, content }) {
                     justBeans!
                   </h4>
                 </li>
-                <li>
-                  <a
-                    className="text-[#4d4d4d] hover:underline"
-                    href="/landing/studentbeans"
-                  >
-                    Students
-                  </a>
-                </li>
+                
                 <li>
                   <a className="text-[#4d4d4d] hover:underline" href="/about-us">
                     About us
                   </a>
                 </li>
-                <li>
-                  <a className="text-[#4d4d4d] hover:underline" href="/recipes">
-                    Recipes
-                  </a>
-                </li>
-                <li>
-                  <a className="text-[#4d4d4d] hover:underline" href="/affiliates">
-                    Affiliates
-                  </a>
-                </li>
+               
+            
                 <li>
                   <a
                     className="text-[#4d4d4d] hover:underline"
@@ -303,11 +387,7 @@ function Testimonial({ name, content }) {
                     Contact us
                   </a>
                 </li>
-                <li>
-                  <a className="text-[#4d4d4d] hover:underline" href="/faq">
-                    FAQs
-                  </a>
-                </li>
+                
                 <li>
                   <a
                     className="text-[#4d4d4d] hover:underline"
@@ -325,7 +405,7 @@ function Testimonial({ name, content }) {
             </div>
 
             {/* Column 3 */}
-            <div className="w-full sm:w-auto">
+            <div className="w-full sm:w-auto" >
               <ul>
                 <li>
                   <h4 className="text-[#a09f9f] capitalize text-lg sm:text-xl my-2">
@@ -333,15 +413,15 @@ function Testimonial({ name, content }) {
                   </h4>
                 </li>
                 <li className="text-[#4d4d4d] leading-relaxed">
-                  Unit D, Discovery House, Juniper Drive, <br /> London, SW18 1UY
+                  Mountain Ash UK, <br /> London, 43ut
                 </li>
                 <li>
                   Email:{' '}
                   <a
                     className="text-[#4d4d4d] hover:underline"
-                    href="mailto:hello@simplycook.com"
+                    href="mailto:hello@justbeans.com"
                   >
-                    hello@justbeans.com
+                    justbeansco@gmail.com
                   </a>
                 </li>
               </ul>
@@ -352,19 +432,17 @@ function Testimonial({ name, content }) {
               <ul>
                 <li>
                   <h4 className="text-[#a09f9f] capitalize text-lg sm:text-xl my-2">
-                    You might also be interested in
+                    You might also be interested in checking our socials
                   </h4>
                 </li>
-                <li>
-                  <a className="text-[#4d4d4d] hover:underline" href="/food-box">
-                    Food Box alternative
-                  </a>
+                <li className="text-[#4d4d4d] hover:underline flex justify-between ">
+                  <>
+                    <a href="https://www.facebook.com/justbeans.com" className='mx-4 hover:text-blue-950' target="_blank" ><Facebook /></a>
+                        <a href="https://twitter.com/justbeans.com" target="_blank" className='mx-4  hover:text-blue-950'><Twitter /></a>
+                        <a href="https://instagram.com/justbeans.com/" target="_blank" className='mx-4  hover:text-blue-950' ><Instagram  /></a>
+                  </>
                 </li>
-                <li>
-                  <a className="text-[#4d4d4d] hover:underline" href="/cooking-box">
-                    Cooking Boxes
-                  </a>
-                </li>
+               
               </ul>
             </div>
          </div>
@@ -374,6 +452,7 @@ function Testimonial({ name, content }) {
                         <a href="https://instagram.com/simplycookcom/" target="_blank" ><Instagram  /></a>
                     </div> */}
      </div>
+     </AnimateWrapper>
   );
 }
 

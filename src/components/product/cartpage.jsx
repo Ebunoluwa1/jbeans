@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { product } from './product';
 import { useDispatch } from 'react-redux';
 import {changeQuantity} from '../stores/cart';
+import { Link } from 'react-router';
 
 // Cart Page
 const CartPage = (props) => {
@@ -35,13 +36,14 @@ const dispatch = useDispatch()
 
   
   return ( 
-    <div className="flex justify-between items-center bg-slate-600 text-white p-2 border-b-2 border-slate-700 gap-5 rounded-md my-2">
+    <div className="w-full flex justify-between items-center bg-slate-600 text-white p-2 border-b-2 border-slate-700 gap-5 rounded-md my-2">
       {/* Cart Items List */}
       
             <img src={detail.img} alt={detail.name} className='w-12' />
             <div>
-              <h4>{detail.name}</h4>
-              <p>${(detail.price * quantity).toFixed(2)}</p>
+              <Link to={`/products/${detail.slug}`}>
+              <h4 className='hover:underline'>{detail.name}</h4></Link>
+              <p>£ {(detail.price * quantity).toFixed(2)} GBP</p>
 
               {/* Update Options */}
 

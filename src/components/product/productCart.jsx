@@ -31,7 +31,7 @@ const dispatch = useDispatch();
             <div className='absolute bottom-4 right-0 flex flex-col justify-end p-4'>
                 <button className="text-xs text-black bg-white px-4 py-2 rounded-lg shadow hover:bg-[#3A2829] hover:text-white transition-all duration-300">
                     View Details 
-              </button>
+                </button>
          </div>
           
              </Link>  
@@ -42,7 +42,7 @@ const dispatch = useDispatch();
                                             <h4 className='font-bold pt-4 pb-2 px-4  '>{name}</h4>
                                             <p className=' px-4'>{content}</p>
                                             <div className='flex items-center justify-between'>
-                                                <p className='text-bold bg-[#3A2829] hover:opacity-80 text-white p-2 rounded-lg w-fit px-6 m-2'>${price}</p>
+                                                <p className='text-bold bg-[#3A2829] hover:opacity-80 text-white p-2 rounded-lg w-fit px-6 m-2'>£ {price} GBP</p>
                                                 <span className='cursor-pointer hover:bg-gray-75 p-2'>
                                                     <Users2 className='w-6 h-6' />
                                                 </span>
