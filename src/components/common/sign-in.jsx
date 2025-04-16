@@ -113,11 +113,11 @@ const handleSubmit = async (e) => {
                 <h3 className='py-4  text-sm sm:text-base'> Sign in with your email and password.</h3> 
               </div>
               <Label htmlFor="email"  className="text-sm sm:text-base">Email</Label>
-              <Input className='ring-gray-50 w-full' id="email" ref={emailRef} type="email" placeholder=" user@gmail.com" />
+              <Input className='ring-gray-50 w-full' id="email" ref={emailRef} type="email" placeholder=" user@gmail.com"  onChange={() => errorMsg && setErrorMsg("")}/>
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password"  className="text-sm sm:text-base">Password</Label>
-              <Input id="password" placeholder="*****"  ref={passwordRef} type="password" className="w-full"/>
+              <Input id="password" placeholder="*****"  ref={passwordRef} type="password" className="w-full"  onChange={() => errorMsg && setErrorMsg("")}/>
              
             </div>
           </div>
@@ -138,7 +138,7 @@ const handleSubmit = async (e) => {
             
         <CardFooter className="flex text-center items-center flex-col ">
             <Link to={"/forgot-password"} className='text-#3A2829] hover:underline p-4 cursor-pointer  text-sm sm:text-base'> Forgot your password ?</Link>
-          <Button disabled={loading || !!errorMsg} onClick={handleSubmit} type="submit" className={`bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4 ${loading || errorMsg ? "opacity-50 cursor-not-allowed" : ""}`}>
+          <Button disabled={loading || !!errorMsg} onClick={handleSubmit} type="submit" className={`bg-[#FCE5CD] text-[#3A2829] hover:focus:bg-[#3A2829]  w-full hover:text-white mb-4 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}>
             {loading ? "Getting signed in..." : "Sign in"}
             </Button>
            <div className="w-100 text-center mt-2">

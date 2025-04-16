@@ -136,22 +136,22 @@ console.log("StatusTabCart:", statusTabCart);
               {/* Price and Add to Cart */}
               <div className="my-6 flex items-center justify-between flex-col lg:flex-row xl:flex-row  sm:flex-row">
                 {/* Quantity Selector */}
-                  <div className='flex gap-5 px-2'>
+                  <div className='flex flex-col gap-5 px-2'>
+                     <p className='font-light capitalize text-left text-[12px]'>Quantity ({cartQuantity} in cart)</p>
                       <div className='flex gap-2 justify-center items-center '>
-                           <p className='font-light capitalize text-left text-[12px]'>Quantity ({cartQuantity} in cart)</p>
                           <button className='bg-gray-100 h-full w-10 font-bold text-xl rounded-xl flex justify-center items-center' onClick={handleMinusQuantity}>-</button>
                           <span className='bg-gray-200 h-full w-10 font-bold text-xl rounded-xl flex justify-center items-center'>{quantity}</span>
                           <button className='bg-gray-100 h-full w-10 font-bold text-xl rounded-xl flex justify-center items-center' onClick={handlePlusQuantity}>+</button>
                       </div>
                   </div> 
-                <main>
-                  <button className="bg-[#3A2829] text-white px-7 py-3 rounded-xl shadow-2xl focus:hover:bg-white focus:hover:text-[#3A2829] my-4 " onClick={handleAddToCart} disabled={isAddingToCart}>
-                    {isAddingToCart ? (
-                      <div className='w-5 h-5  border-2 border-white border-t-transparent rounded-full animate-spin'></div>
-                    ) : ('Add to Cart')}
-                 
-                </button>
-                </main>
+                  <main>
+                    <button className="bg-[#3A2829] text-white px-7 py-3 rounded-xl shadow-2xl focus:hover:bg-white focus:hover:text-[#3A2829] my-4 " onClick={handleAddToCart} disabled={isAddingToCart}>
+                      {isAddingToCart ? (
+                        <div className='w-5 h-5  border-2 border-white border-t-transparent rounded-full animate-spin'></div>
+                      ) : ('Add to Cart')}
+                  
+                    </button>
+                  </main>
               </div>
             </div>
 
